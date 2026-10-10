@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #F59E0B;
+}
+
+body {
+  @apply bg-black text-white;
+}
+
+.holographic {
+  background: linear-gradient(135deg, #F59E0B, #FBBF24, #F59E0B);
+  background-size: 200% 200%;
+  animation: shimmer 3s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
