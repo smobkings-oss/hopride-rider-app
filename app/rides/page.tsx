@@ -10,6 +10,7 @@ interface Ride {
   pickup: string
   dropoff: string
   type: 'instant' | 'scheduled'
+  vehicle?: 'hop' | 'navigator' | 'xl'
   scheduledFor?: string
   estimatedFare: number
   status: string
@@ -72,6 +73,11 @@ export default function RidesPage() {
                     <span className="text-xs bg-gold-500/20 text-gold-400 px-2 py-1 rounded-full">Instant</span>
                   ) : (
                     <span className="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full">Scheduled</span>
+                  )}
+                  {ride.vehicle && (
+                    <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full capitalize">
+                      {ride.vehicle === 'navigator' ? 'Tesla Nav' : ride.vehicle}
+                    </span>
                   )}
                   <span className="text-xs text-gray-500">
                     {format(new Date(ride.createdAt), 'MMM d, h:mm a')}
