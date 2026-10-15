@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { MapPin, Clock, Car, Trash2 } from 'lucide-react'
+import { MapPin, Clock, Car, Trash2, Eye } from 'lucide-react'
 import { format } from 'date-fns'
 
 interface Ride {
@@ -28,8 +28,10 @@ export default function RidesPage() {
   }, [])
 
   const clearRides = () => {
-    localStorage.removeItem('hopride-rides')
-    setRides([])
+    if (confirm('Clear all ride history?')) {
+      localStorage.removeItem('hopride-rides')
+      setRides([])
+    }
   }
 
   return (
@@ -68,7 +70,7 @@ export default function RidesPage() {
               className="bg-gray-900 border border-gray-800 hover:border-gold-600/40 rounded-xl p-5 transition"
             >
               <div className="flex justify-between items-start mb-3">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   {ride.type === 'instant' ? (
                     <span className="text-xs bg-gold-500/20 text-gold-400 px-2 py-1 rounded-full">Instant</span>
                   ) : (
@@ -82,10 +84,17 @@ export default function RidesPage() {
                   <span className="text-xs text-gray-500">
                     {format(new Date(ride.createdAt), 'MMM d, h:mm a')}
                   </span>
+                  <span className={`text-xs px-2 py-1 rounded-full ${
+                    ride.status === 'completed' ? 'bg-green-500/20 text-green-400' :
+                    ride.status === 'matched' || ride.status === 'enroute' ? 'bg-gold-500/20 text-gold-400' :
+                    'bg-gray-700 text-gray-400'
+                  }`}>
+                    {ride.status}
+                  </span>
                 </div>
                 <span className="font-semibold text-gold-400">${ride.estimatedFare.toFixed(2)}</span>
               </div>
-              <div className="space-y-2 text-sm">
+              <div className="space-y-2 text-sm mb-3">
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-gold-500 shrink-0" />
                   <span className="truncate">{ride.pickup}</span>
@@ -101,6 +110,14 @@ export default function RidesPage() {
                   </div>
                 )}
               </div>
+              {ride.type === 'instant' && ride.status !== 'completed' && (
+                <Link
+                  href={`/track?id=${ride.id}`}
+                  className="inline-flex items-center gap-1 text-xs text-gold-400 hover:text-gold-300"
+                >
+                  <Eye className="w-3 h-3" /> Track
+                </Link>
+              )}
             </div>
           ))}
         </div>

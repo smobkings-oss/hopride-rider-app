@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Car, History } from 'lucide-react'
+import { Car, History, User } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'HopRide | Instant & Scheduled Rides',
@@ -22,19 +22,22 @@ export default function RootLayout({
               <Car className="w-7 h-7 text-gold-500" />
               <span className="text-xl font-bold holographic">HopRide</span>
             </Link>
-            <div className="flex gap-6 text-sm">
+            <div className="flex gap-4 md:gap-6 text-sm">
               <Link href="/book" className="flex items-center gap-1 hover:text-gold-400 transition">
                 <Car className="w-4 h-4" /> Book
               </Link>
               <Link href="/rides" className="flex items-center gap-1 hover:text-gold-400 transition">
                 <History className="w-4 h-4" /> My Rides
               </Link>
+              <Link href="/profile" className="flex items-center gap-1 hover:text-gold-400 transition">
+                <User className="w-4 h-4" /> Profile
+              </Link>
             </div>
           </div>
         </nav>
         <main className="min-h-screen">{children}</main>
         <footer className="border-t border-gold-600/20 py-6 text-center text-xs text-gray-500">
-          HopRide / A2B Rides · NW Ohio · Premium local rides
+          HopRide / A2B Rides · NW Ohio & SE Michigan · Premium local rides · Anytime Anywhere Solutions LLC
         </footer>
       </body>
     </html>
