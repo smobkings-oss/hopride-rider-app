@@ -17,23 +17,4 @@ Premium local ride-hailing for NW Ohio & SE Michigan. Riders can hop on and plac
 - Next.js 14 (App Router) + TypeScript + Tailwind CSS
 - Ready for Capacitor (iOS/Android), Supabase (auth + realtime + DB), Stripe (payments), Mapbox/Google Maps
 
-## Local Development
-```bash
-npm install
-npm run dev
-```
-
-## Deploy
-Deploy to Vercel. Connect the GitHub repo for automatic deploys. Project already linked as `hopride-rider-app`.
-
-## Next Steps (per platform roadmap)
-1. Supabase Auth (rider login) + real database for rides
-2. Realtime driver matching & location tracking
-3. Stripe Checkout + Connect for payments & driver payouts
-4. Map integration (Google Maps / Mapbox)
-5. Admin dashboard
-6. Capacitor mobile builds
-7. Push notifications
-
 Built for the A2B Rides / HopRide NW Ohio launch.
-Anytime Anywhere Solutions LLC DBA A2B Rides.
