@@ -27,14 +27,12 @@ const VEHICLES = {
 }
 
 function calculateFare(pickup: string, dropoff: string, vehicle: VehicleType, type: RideType): number {
-  // More realistic mock based on the skill's pricing intent
   const base = 3.50
   const perMile = 1.85
   const perMin = 0.28
   const booking = 1.50
-  // Mock distance/time from string length (rough estimate for demo)
   const dist = Math.max(3, Math.min(25, (pickup.length + dropoff.length) / 4))
-  const time = dist * 2.5 // minutes
+  const time = dist * 2.5
   let fare = base + dist * perMile + time * perMin + booking
   fare *= VEHICLES[vehicle].multiplier
   if (type === 'scheduled') fare += 1
@@ -107,12 +105,10 @@ export default function BookPage() {
     setSubmitting(false)
     setMatching(true)
 
-    // Simulate matching for instant rides
     if (type === 'instant') {
       setTimeout(() => {
         setMatching(false)
         setSuccess(true)
-        // Update status in storage
         const updated = JSON.parse(localStorage.getItem('hopride-rides') || '[]')
         const idx = updated.findIndex((r: Ride) => r.id === ride.id)
         if (idx !== -1) {
@@ -146,7 +142,7 @@ export default function BookPage() {
         <p className="text-gray-400 mb-6">
           {lastRide.type === 'instant' 
             ? 'Your HopRide driver is on the way. Live tracking coming soon.' 
-            : 'You\'ll receive a reminder before your scheduled pickup.'}
+            : "You'll receive a reminder before your scheduled pickup."}
         </p>
         <div className="bg-gray-900 border border-gold-600/30 rounded-xl p-6 text-left space-y-3">
           <div className="flex items-start gap-3">
