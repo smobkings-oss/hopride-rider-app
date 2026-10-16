@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { MapPin, Clock, Zap, Calculator, CheckCircle, Car, Navigation, Loader2 } from 'lucide-react'
 import { format } from 'date-fns'
@@ -40,7 +40,7 @@ function calculateFare(pickup: string, dropoff: string, vehicle: VehicleType, ty
   return Math.round(fare * 100) / 100
 }
 
-export default function BookPage() {
+function BookPageContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const initialType = (searchParams.get('type') as RideType) || 'instant'
@@ -327,5 +327,13 @@ export default function BookPage() {
         Demo mode: Rides saved locally. Ready for Supabase realtime matching, Stripe payments, and live tracking.
       </p>
     </div>
+  )
+}
+
+export default function BookPage() {
+  return (
+    <Suspense fallback={<div className="max-w-2xl mx-auto px-4 py-20 text-center text-gray-400">Loading booking...</div>}>
+      <BookPageContent />
+    </Suspense>
   )
 }
